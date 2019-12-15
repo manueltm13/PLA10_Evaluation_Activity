@@ -1,0 +1,143 @@
+html{
+	height: 100vh;
+}
+html, body{
+	width: 100%;
+}
+
+body{
+}
+
+header{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 4em;
+	border-bottom: 1px solid gray;
+	background: linear-gradient(45deg, #35b5ff 0%,#a8ddff 53%,#dbf0ff 100%);
+	text-align: center;
+}
+
+header>img{
+	position: absolute;
+	height: 100%;
+    left: 5px;
+}
+
+header>p{
+	margin-top: 0;
+    margin-bottom: 1rem;
+    display: inline-block;
+    font-size: 2em;
+    vertical-align: top;
+    color: #108092;
+    font-style: italic;
+    line-height: 2em;
+    font-weight: bold;
+}
+
+header>.btn-group, 
+header form#command{
+    float: right;
+    margin-top: .7em;
+    margin-right: 1em;
+}
+
+header>.btn-group.btn-login>button{
+	color: white;
+}
+
+header>.btn-group.btn-login.show>button{
+	color: transparent;
+}
+
+header .dropdown-menu{
+	background-color: beige;
+}
+
+div.cls-background{
+	top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+	/*background: linear-gradient(45deg, #35b5ff94 0%,#a8ddffc7 53%,#dbf0ff80 100%);*/
+}
+
+section{
+	display: flex;
+	margin-top: 4em;
+}
+
+section>img{
+	height: 25em;
+	opacity: .2;
+	margin-top: 1em;
+	margin-left: 1em;
+	margin-bottom: 1em;
+}
+
+section>div{
+	margin-left: 2em;
+    width: 100%;
+    margin-top: 3em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    overflow-y: hidden;
+    margin-bottom: 1em;
+}
+
+section>div>h2{
+	text-decoration: underline;
+}
+section>div>textarea{
+	display: inline-block;
+    background-color: transparent;
+    margin-top: 1em;
+    overflow-y: hidden;
+    width: 100%;
+    text-align: justify;
+    border: none;
+    height: 100%;
+}
+
+body>textarea{
+	display: inline-block;
+    background-color: transparent;
+    overflow-y: hidden;
+    width: 100%;
+    text-align: justify;
+    padding-left: 1em;
+    padding-right: 1em;
+    border: none;
+    height: 100%;
+}
+
+#id-prohibido h1{
+	margin: 2em;
+    font-weight: bold;
+    font-size: 3em;
+}
+
+#id-prohibido a{
+	margin-left: 6em;
+}
+
+.cls-rol>h1:first-of-type{
+	margin: 3em 1em 1em;
+}
+
+.cls-rol>h3:first-of-type{
+	margin-left: 1em;
+    margin-bottom: 1em;
+}
+
+footer{
+	position: fixed;
+	bottom: 0;
+	padding-left: 1em;
+}
+
+.cls-rol footer{
+	background-color: beige;
+}
