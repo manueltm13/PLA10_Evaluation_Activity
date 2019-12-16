@@ -20,29 +20,29 @@
 		<div class="btn-group btn-login">
 			<button type="button" class="btn btn-info dropdown-toggle"
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Iniciar sesión</button>
+				Sign in</button>
 			<div class="dropdown-menu dropdown-menu-right">
 				<form:form class="px-4 py-3"
 					action="${pageContext.request.contextPath}/authenticateTheUser"
 					method="POST">
 					<div class="form-group">
-						<label for="id-username">Usuario</label> <input type="text"
-							class="form-control" id="id-username" name="username" placeholder="Usuario">
+						<label for="id-username">User</label> <input type="text"
+							class="form-control" id="id-username" name="username" placeholder="User">
 					</div>
 					<div class="form-group">
-						<label for="id-password">Contraseña</label> <input type="password"
-							class="form-control" id="id-password" name="password" placeholder="Contraseña">
+						<label for="id-password">Password</label> <input type="password"
+							class="form-control" id="id-password" name="password" placeholder="Password">
 					</div>
-					<div class="form-check">
+					<!-- div class="form-check">
 						<input type="checkbox" class="form-check-input" id="dropdownCheck">
 						<label class="form-check-label" for="dropdownCheck">
 							Recuérdame </label>
-					</div>
-					<button type="submit" class="btn btn-primary">Iniciar sesión</button>
+					</div -->
+					<button type="submit" class="btn btn-primary">Sign in</button>
 				</form:form>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#">Nuevo por aquí? Regístrese</a> <a
-					class="dropdown-item" href="#">Olvidó su contraseña?</a>
+				<!--  a class="dropdown-item" href="#">Nuevo por aquí? Regístrese</a> <a
+					class="dropdown-item" href="#">Olvidó su contraseña?</a -->
 			</div>
 		</div>
 	</header>
@@ -59,12 +59,12 @@
 	<footer>
 		<c:if test="${param.error!=null}">
 			<div class="alert alert-danger">
-				<strong>Error:</strong> Nombre o contraseña incorrectos.
+				<strong>Error:</strong> Wrong name or password.
 			</div>
 		</c:if>
 		<c:if test="${param.logout!=null}">
 			<div class="alert alert-warning">
-				<strong>Salir:</strong> Ha salido del sistema.
+				<strong>Exit:</strong> You have left the system.
 			</div>
 		</c:if>
 	</footer>

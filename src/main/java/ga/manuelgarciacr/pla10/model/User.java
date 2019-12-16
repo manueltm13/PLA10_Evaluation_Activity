@@ -12,27 +12,41 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import ga.manuelgarciacr.pla10.validators.DateValidation;
+import ga.manuelgarciacr.pla10.validators.EmailValidation;
+
 @Entity
 @Table(name = "users")
-@SecondaryTable(name = "tbl_users", pkJoinColumns = @PrimaryKeyJoinColumn(name = "userCode", referencedColumnName = "username"))
+@org.hibernate.annotations.Table(appliesTo="tbl_users", optional=false) 
+@SecondaryTable(name = "tbl_users", pkJoinColumns = @PrimaryKeyJoinColumn(name = "userCode", referencedColumnName = "username")
+, uniqueConstraints = @UniqueConstraint(name = "email_user_uc", columnNames = "userEmail"))
 public class User {
 	@Id
 	@Column(name = "username")
+	@Size(min = 3, message = "Minimum three characters")
 	private String username;
 	@Column(name = "password", nullable = false)
+	@Size(min = 8, message = "Minimum eight characters")
 	private String password;
 	@Column(name = "enabled", nullable = false)
+	@NotNull(message="Not null")
 	private boolean enabled;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private Set<Authority> authorities = new HashSet<>();
 	// Secondary table
-	@Column(table = "tbl_users")
+	@Column(table = "tbl_users", unique = true)
 	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@NotNull(message="Empty field")
 	private Date userPwdDate;
 	@Column(table = "tbl_users")
+	@EmailValidation
 	private String userEmail;
 	
 	public String getUsername() {
@@ -79,8 +93,8 @@ public class User {
 		return userEmail;
 	}
 
-	public void setUsrEmail(String usrEmail) {
-		this.userEmail = usrEmail;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 	
 }

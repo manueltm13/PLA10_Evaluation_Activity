@@ -12,4 +12,8 @@ public interface IUserDAO {
 	User getUser(String username);
 	
 	void delete(User user);
+	
+	Boolean userEmailExists(String email);
+	
+	Boolean userNameExists(String name);
 }

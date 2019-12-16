@@ -61,7 +61,7 @@ div.cls-background{
     width: 100%;
     height: 100vh;
     z-index: -1;
-	/*background: linear-gradient(45deg, #35b5ff94 0%,#a8ddffc7 53%,#dbf0ff80 100%);*/
+	background: linear-gradient(45deg, #35b5ff94 0%,#a8ddff70 53%,#dbf0ff2b 100%);
 }
 
 section{
@@ -130,6 +130,37 @@ body>textarea{
 .cls-rol>h3:first-of-type{
 	margin-left: 1em;
     margin-bottom: 1em;
+}
+
+/* Table */
+
+div#id-div-table {
+    margin: 2em;
+}
+
+/* User form */
+
+form#user {
+    margin: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+form#user .form-group {
+    display: flex;
+}
+ 
+form#user .form-group label {
+    width: 12em;
+}
+
+form#user .form-group.cls-checkbox {
+    display: inline-block;
+}
+
+form#user .form-group.cls-checkbox .form-control{
+	width: 3em;
+	display: inline-block;
 }
 
 footer{
