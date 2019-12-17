@@ -7,11 +7,13 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -38,7 +40,7 @@ public class User {
 	@Column(name = "enabled", nullable = false)
 	@NotNull(message="Not null")
 	private boolean enabled;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
 	private Set<Authority> authorities = new HashSet<>();
 	// Secondary table
 	@Column(table = "tbl_users", unique = true)
@@ -48,6 +50,8 @@ public class User {
 	@Column(table = "tbl_users")
 	@EmailValidation
 	private String userEmail;
+	@Transient
+	private String rols;
 	
 	public String getUsername() {
 		return username;
@@ -95,6 +99,14 @@ public class User {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+
+	public String getRols() {
+		return rols;
+	}
+
+	public void setRols(String rols) {
+		this.rols = rols;
 	}
 	
 }

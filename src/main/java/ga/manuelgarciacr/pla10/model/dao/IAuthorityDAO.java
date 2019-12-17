@@ -8,9 +8,9 @@ public interface IAuthorityDAO {
 	
 	List<Authority> getAuthorities();
 	
+	//List<Authority> getAuthorities(String authority);
+
 	void save(Authority authority);
-	
-	Authority getAuthority(String authority);
 	
 	void delete(Authority authority);
 }

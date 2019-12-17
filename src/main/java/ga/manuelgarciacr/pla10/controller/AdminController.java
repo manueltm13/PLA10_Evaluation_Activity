@@ -1,8 +1,11 @@
 package ga.manuelgarciacr.pla10.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -14,12 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DefaultBindingErrorProcessor;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,32 +55,117 @@ public class AdminController {
 	@GetMapping("/addUser")
 	public String addUser(Model modelo) {
 		User user = new User();
-		List<Authority> aths = authorityService.getAuthorities();
+		List<Authority> auths = new ArrayList<>(), allAuths = authorityService.getAuthorities();
+		//List<Authority> userAuths = new ArrayList<>(user.getAuthorities());
+		String rols = "";
+		Boolean exists;
+		for(Authority aa: allAuths) {
+			exists = false;
+			/*
+			for(Authority ua: userAuths)
+				if(ua.getAuthority().equals(aa.getAuthority())) {
+					exists = true;
+					break;
+				}
+			if(!exists)
+			*/
+			for(Authority a: auths)
+				if(aa.getAuthority().equals(a.getAuthority())) {
+					exists = true;
+					break;
+				}
+			if(!exists) {
+				aa.setUser(user);
+				//aa.setUsername(user.getUsername());
+				auths.add(aa);
+				if(rols.equals(""))
+					rols += "-" + aa.getAuthority().substring(5);
+				else
+					rols += "|-" + aa.getAuthority().substring(5);
+			}
+		}
+		user.setRols(rols);
+		user.setEnabled(true);
+		user.setUserPwdDate(new Date());
 		modelo.addAttribute("user", user);
-		modelo.addAttribute("aths", aths);
+		modelo.addAttribute("action", "Add");
+		//modelo.addAttribute("auths", auths);
+		//modelo.addAttribute("userAuths", userAuths);
 		return "userForm";
 	}
 
+	@GetMapping("/deleteUser")
+	public String deleteUser(@RequestParam("username") String username, Model modelo) {
+		User user = userService.getUser(username);
+		List<Authority> auths = new ArrayList<>(), allAuths = authorityService.getAuthorities();
+		List<Authority> userAuths = new ArrayList<>(user.getAuthorities());
+		String rols = "";
+		Boolean exists;
+		for(Authority aa: allAuths) {
+			exists = false;
+			for(Authority a: auths)
+				if(aa.getAuthority().equals(a.getAuthority())) {
+					exists = true;
+					break;
+				}
+			if(!exists) {
+				for(Authority ua: userAuths)
+					if(aa.getAuthority().equals(ua.getAuthority())) {
+						exists = true;
+						break;
+					}
+				auths.add(new Authority(aa.getAuthority(), user));
+				//auths.add(new Authority(aa.getAuthority(), user.getUsername()));
+				if(exists) {
+					if(rols.equals(""))
+						rols += "+" + aa.getAuthority().substring(5);
+					else
+						rols += "|+" + aa.getAuthority().substring(5);
+				}else {
+					if(rols.equals(""))
+						rols += "-" + aa.getAuthority().substring(5);
+					else
+						rols += "|-" + aa.getAuthority().substring(5);
+				}
+			}
+		}
+		user.setRols(rols);
+		modelo.addAttribute("user", user);
+		modelo.addAttribute("action", "Delete");
+		return "userForm";
+	}
+
+	@GetMapping("/deleteUserProcess")
+	//public String deleteUserProcess(@ModelAttribute("user") User user,
+	//		BindingResult bindingResult, ModelMap model) {
+	public String deleteUserProcess(@RequestParam("username") String username, Model modelo) {
+		User user = userService.getUser(username);
+		userService.delete(user);
+		return "redirect:/admin/users";
+	}
+
 	@PostMapping("/saveUser")
-	public String saveUser(@Valid @ModelAttribute("user") User user, 
-			BindingResult bindingResult) {
-		
+	public String saveUser(@Valid @ModelAttribute("user") User user,
+			BindingResult bindingResult, ModelMap model){
 		if(userService.userNameExists(user.getUsername()))
 			bindingResult.addError(new FieldError("user", "username", "This user (" + user.getUsername() +") already exists"));
+
 		if(userService.userEmailExists(user.getUserEmail()))
 			bindingResult.addError(new FieldError("user", "userEmail", "This email (" + user.getUserEmail() + ") already exists"));
-
-		for(ObjectError oe: bindingResult.getAllErrors())
-			System.out.println(oe.toString()+ " * " + oe.getDefaultMessage());
+		
 		if (bindingResult.hasErrors()) {
-			/* bindingResult.addError(new ObjectError( )); */
+			model.addAttribute("action", "Add");
 			return "userForm";
 		} else {
 			PasswordEncoder pe = new BCryptPasswordEncoder();
-			String pw = user.getPassword();
-			if(pw.length() < 8)
-				user.setPassword(pe.encode(pw));
+			user.setPassword(pe.encode(user.getPassword()));
 			userService.save(user);
+System.out.println("ANTES");
+			String[] strAuths = user.getRols().split("\\|");
+			for(String str: strAuths)
+				if(str.startsWith("+"))
+					authorityService.save(new Authority("ROLE_" + str.substring(1), user));
+			
 			return "redirect:/admin/users";
 		}
 	}

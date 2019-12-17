@@ -30,6 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import ga.manuelgarciacr.pla10.model.Authority;
+import ga.manuelgarciacr.pla10.model.AuthorityId;
 import ga.manuelgarciacr.pla10.model.Center;
 import ga.manuelgarciacr.pla10.model.Department;
 import ga.manuelgarciacr.pla10.model.User;
@@ -86,7 +87,7 @@ public class AppConfig implements WebMvcConfigurer{
 				"C3P0_MIN_SIZE: " + props.getProperty(C3P0_MIN_SIZE) + "\n" +
 				"C3P0_MAX_SIZE: " + props.getProperty(C3P0_MAX_SIZE));
 		factoryBean.setHibernateProperties(props);
-		factoryBean.setAnnotatedClasses(User.class, Authority.class, Center.class, Department.class);
+		factoryBean.setAnnotatedClasses(User.class, Authority.class, AuthorityId.class, Center.class, Department.class);
 
 		return factoryBean;
 	}

@@ -21,16 +21,17 @@ public class AuthorityService implements IAuthorityDAO {
 		return authorityDAO.getAuthorities();
 	}
 
-	@Override
-	@Transactional
-	public void save(Authority authority) {
-		authorityDAO.save(authority);
-	}
+	//@Override
+	//@Transactional
+	//public List<Authority> getAuthorities(String authority) {
+	//	return authorityDAO.getAuthorities();
+	//}
 
 	@Override
 	@Transactional
-	public Authority getAuthority(String authority) {
-		return authorityDAO.getAuthority(authority);
+	public void save(Authority authority) {
+//System.out.println("XXX222" + authority.getAuthority()+ authority.getUsername());
+		authorityDAO.save(authority);
 	}
 
 	@Override

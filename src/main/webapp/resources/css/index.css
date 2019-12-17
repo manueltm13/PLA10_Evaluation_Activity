@@ -55,6 +55,10 @@ header .dropdown-menu{
 	background-color: beige;
 }
 
+div.btn-login .dropdown-menu.dropdown-menu-right.show {
+    width: 14em;
+}
+
 div.cls-background{
 	top: 0;
     position: fixed;
@@ -138,6 +142,10 @@ div#id-div-table {
     margin: 2em;
 }
 
+div#id-div-table input[type="checkbox"] {
+    transform: scale(2);
+}
+
 /* User form */
 
 form#user {
@@ -146,21 +154,58 @@ form#user {
     flex-direction: column;
 }
 
-form#user .form-group {
+form#user>.form-group {
     display: flex;
 }
  
-form#user .form-group label {
-    width: 12em;
+form#user>.form-group.cls-auths {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-form#user .form-group.cls-checkbox {
-    display: inline-block;
+form#user>.form-group.cls-auths>.form-group{
+	margin-left: 1em;
+}
+
+form#user>.form-group.cls-auths input[type=checkbox]{
+	margin-left: 1em;
+	transform: scale(2);
+}
+
+form#user>.form-group.cls-auths label,
+form#user>.form-group.cls-auths input[type=text]{
+	margin-left: 1em;
+	border: 1px solid black;
+	width: 18em;
+}
+
+form#user>.form-group.cls-auths .form-group.cls-old input[type=text]{
+	background-color: lightskyblue;
+}
+
+form#user>.form-group.cls-auths input[type=text]{
+	margin-left: 1.2em;
+}
+
+form#user>.form-group label {
+    flex: 0 0 12em
 }
 
 form#user .form-group.cls-checkbox .form-control{
-	width: 3em;
 	display: inline-block;
+    transform: scale(2);
+    width: 3em;
+    font-size: .2em;
+    margin-left: 2em;
+}
+
+.cls-hide,
+form#user>.form-group.cls-hide {
+	display: none;
+}
+
+span.error{
+	margin-left: 1em;
 }
 
 footer{
@@ -171,4 +216,7 @@ footer{
 
 .cls-rol footer{
 	background-color: beige;
+    width: 100%;
+    margin: 0;
+    left: 0;
 }

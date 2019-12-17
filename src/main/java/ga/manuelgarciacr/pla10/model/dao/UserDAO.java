@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ga.manuelgarciacr.pla10.model.dao.IUserDAO;
+import ga.manuelgarciacr.pla10.model.Authority;
 import ga.manuelgarciacr.pla10.model.User;
 
 @Repository

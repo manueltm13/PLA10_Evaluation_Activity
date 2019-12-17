@@ -40,10 +40,12 @@
 			</tr>
 			<c:forEach var="user" items="${users}">
 				<c:url var="linkEditar" value="/admin/updateUser">
-					<c:param name="idUser" value="${user.username }" />
+					<!-- El nombre del parametro debe coincidir con el del método. El método puede recibir además el modelo como segundo parámetro -->
+					<c:param name="username" value="${user.username }" />
 				</c:url>
 				<c:url var="linkBorrar" value="/admin/deleteUser">
-					<c:param name="idUser" value="${user.username }" />
+					<!-- El nombre del parametro debe coincidir con el del método. El método puede recibir además el modelo como segundo parámetro -->
+					<c:param name="username" value="${user.username }" />
 				</c:url>
 				<tr>
 					<td><input onclick="return false;" type="checkbox" ${user.enabled ? "Checked" : "" }/></td>
@@ -59,11 +61,11 @@
 		</table>
 	</div>
 	<footer>
-		<sec:authorize access="hasRole('EDITOR')">
+		<sec:authorize access="hasAnyRole('ADMIN', 'EDITOR')">
 			<a href="${pageContext.request.contextPath}/editor/"
 				class="btn btn-outline-primary">Sección Editorial</a>
 		</sec:authorize>
-		<sec:authorize access="hasRole('ADMINISTRADOR')">
+		<sec:authorize access="hasAnyRole('ADMIN', 'EDITOR')">
 			<a href="${pageContext.request.contextPath}/administrador/"
 				class="btn btn-outline-primary">Sección Administrativa</a>
 		</sec:authorize>
