@@ -27,7 +27,7 @@
 					method="POST">
 					<div class="form-group">
 						<label for="id-username">User</label> <input type="text"
-							class="form-control" id="id-username" name="username" placeholder="User">
+							class="form-control" id="id-username" autocomplete="off"  name="username" placeholder="User">
 					</div>
 					<div class="form-group">
 						<label for="id-password">Password</label> <input type="password"
@@ -62,11 +62,13 @@
 				<strong>Error:</strong> Wrong name or password.
 			</div>
 		</c:if>
+		<!-- 
 		<c:if test="${param.logout!=null}">
 			<div class="alert alert-warning">
 				<strong>Exit:</strong> You have left the system.
 			</div>
 		</c:if>
+		-->
 	</footer>
 </body>
 </html>

@@ -35,8 +35,8 @@ public class User {
 	@Size(min = 3, message = "Minimum three characters")
 	private String username;
 	@Column(name = "password", nullable = false)
-	@Size(min = 8, message = "Minimum eight characters")
-	private String password;
+	@Size(max = 250, message="Maximum 250 characters")
+	private String password = "";
 	@Column(name = "enabled", nullable = false)
 	@NotNull(message="Not null")
 	private boolean enabled;
@@ -66,7 +66,8 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		if(password != null && !password.equals(""))
+			this.password = password;
 	}
 
 	public boolean isEnabled() {

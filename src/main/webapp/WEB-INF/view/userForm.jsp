@@ -15,7 +15,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<link href="<c:url value="/resources/css/index.css" />" rel="stylesheet">
 </head>
-<body class="cls-rol">
+<body id="user-body">
 	<header>
 		<img alt="Trip Memories" src="<c:url value="/resources/img/avion.png" />">
 		<p>Users</p>
@@ -25,28 +25,37 @@
 				onclick="if(!confirm('Sign out. Are you sure?')) return false">Sign out</button>
 		</form:form>
 	</header>
+	
 	<div class="cls-background">
 	</div>
+	
 	<!-- h1>${action=="Add" ? "New" : "Edit"} user</h1 -->
 	<h1 class="cls-action">${action} user</h1>
-	<p id="id-action" class="cls-hide">${action}</p>
-	<form:form id="user" action="saveUser" modelAttribute="user" method="post">
-		<form:input id="id-rols" type="hidden" path="rols" class="form-control" value="${rols}"/>
-		<div class="form-group cls-checkbox">
+	<p id="action" class="cls-hiden">${action}</p>
+	
+	<form:form id="user-form" action="addUserProcess" modelAttribute="user" method="post">
+		
+		<form:input id="rols" type="hidden" path="rols" class="form-control" value="${rols}"/>
+		
+		<div class="form-group" id="enabled-group">
 			<label for="enabled">Enabled:</label>
 			<form:checkbox path="enabled" class="form-control" />
 			<form:errors path="enabled" cssClass="error text-danger" />
 		</div>
-		<div class="form-group">
+		
+		<div class="form-group" id="username-group">
 			<label for="username">Name:</label>
-			<form:input path="username" class="form-control" />
+			<form:input type="text" path="username" class="form-control" autocomplete="off"/>
 			<form:errors path="username" cssClass="error text-danger" />
 		</div>
-		<div class="form-group cls-password">
+		<form:input path="username" id="hiden-username-input" class="cls-hiden" type="text" disabled="true" />
+		
+		<div class="form-group" id="password-group">
 			<label for="password">Password:</label>
-			<form:input type="password" path="password" class="form-control" />
+			<form:input type="password" path="password" class="form-control" autocomplete="off" />
 			<form:errors path="password" cssClass="error text-danger" />
 		</div>
+		
 		<div class="form-group">
 			<label for="userPwdDate">Password Date:</label>
 			<!-- fmt:formatDate pattern='yyyy-MM-dd' value='${user.userPwdDate}' /-->
@@ -56,31 +65,23 @@
 				value="${dateString}"/>
 			<form:errors path="userPwdDate" cssClass="error text-danger" />
 		</div>
+		
 		<div class="form-group">
 			<label for="userEmail">Email:</label>
-			<form:input path="userEmail" class="form-control" />
+			<form:input type="text" path="userEmail" class="form-control" autocomplete="off" />
 			<form:errors path="userEmail" cssClass="error text-danger" />
 		</div>
+		
 		<div class="form-group cls-auths">
-			<!-- 
-			<c:forEach var="auth" items="${userAuths}">
-				<div class="form-group cls-user-auths">
-					<input type="checkbox" Checked/>
-					<input readonly type="text" value="${auth.authority}"/>
-				</div>
-			</c:forEach>
-			<c:forEach var="auth" items="${auths}">
-				<div class="form-group cls-all-auths">
-					<input type="checkbox"/>
-					<input readonly type="text" value="${auth.authority}"/>
-				</div>
-			</c:forEach>
-			-->
 		</div>
+		
+		<!-- Links -->
+		
 		<c:url var="linkEliminar" value="/admin/deleteUserProcess">
 			<c:param name="username" value="${user.username }" />
 		</c:url>
-		<a id="id-delete-link" href="${linkEliminar}" class="cls-hide"></a>
+		<a id="delete-link" href="${linkEliminar}" class="cls-hiden"></a>
+
 		<footer class="cls-buttons">
 			<input type="submit" value="Save" class="btn btn-success" onclick="if(!confirm('Save data. Are you sure?')) return false"/>
 			<input type="button" value="Add Rol" class="btn btn-success" onclick="addAuth()"/>
@@ -89,8 +90,8 @@
 		</footer>
 	</form:form>
 	<script>
-		if($("#id-rols").val().length > 0){
-			rols = $("#id-rols").val().split("|");
+		if($("input#rols").val().length > 0){
+			rols = $("input#rols").val().split("|");
 			for(i = 0; i < rols.length; i++){
 				console.log("ROLS", i, rols[i]);
 				rol = $("<div></div>").addClass("form-group").addClass("cls-old");
@@ -103,18 +104,29 @@
 			}
 		}
 
-		if((action = $("#id-action").text()) === "Delete"){
-			$("div.cls-password").addClass("cls-hide");
+		if((action = $("p#action").text()) === "Delete"){
+			$("div#password-group").addClass("cls-hiden");
 			$("div.form-group>input").prop("disabled", true);
 			$("footer>input[type=button]").prop("disabled", true);
-			//$("#user").attr("action", "PPPPdeleteUserProcess");
 			$("footer>input[type=submit]").val("Delete").removeClass("btn-success")
-				.addClass("btn-danger").attr("type", "button").removeAttr("onclick").off("click").on("click", ( ) => {
-					$('#id-delete-link')[0].click();
+				.addClass("btn-danger").attr("type", "button").removeAttr("onclick")
+				.off("click").on("click", () => {
+					$('a#delete-link')[0].click();
 					return false;
 				});
+		}else if(action === "Update"){
+			$("div#username-group>input").prop("disabled", true);
+			$("input#hiden-username-input").prop("disabled", false);
+			$("div#password-group>input").val("");
+			$("form#user-form").attr("action", "updateUserProcess");
+			$("footer>input[type=submit]").val("Update").removeAttr("onclick")
+				.off("click").on("click", () => {
+					if(!confirm('Update data. Are you sure?')){
+						return false;
+				}
+			});
 		}
-		
+		console.log("ACTION", action);
 		function addAuth(){
 			cnt = 0;
 			var str = "";
@@ -148,7 +160,7 @@
 						out += "|-" + $(ele).find("input[type=text]").val();
 				}
 			})
-			$("#id-rols").val(out)
+			$("input#rols").val(out)
 		    return true; // return false to cancel form action
 		});
 	</script>

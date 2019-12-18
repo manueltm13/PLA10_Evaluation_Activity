@@ -67,6 +67,11 @@ public class UserService implements IUserDAO, UserDetailsService {
 	}
 
 	@Override
+	public Boolean userEmailExists(String email, String excludedUsername) {
+		return userDAO.userEmailExists(email, excludedUsername);
+	}
+
+	@Override
 	public Boolean userNameExists(String name) {
 		return userDAO.userNameExists(name);
 	}

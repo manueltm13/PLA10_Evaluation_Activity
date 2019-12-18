@@ -117,25 +117,28 @@ body>textarea{
     height: 100%;
 }
 
-#id-prohibido h1{
+#prohibido-body h1{
 	margin: 2em;
     font-weight: bold;
     font-size: 3em;
 }
 
-#id-prohibido a{
+#prohibido-body a{
 	margin-left: 6em;
 }
 
-.cls-rol>h1:first-of-type{
+#user-body>h1:first-of-type{
 	margin: 3em 1em 1em;
 }
 
-.cls-rol>h3:first-of-type{
+#user-body>h3:first-of-type{
 	margin-left: 1em;
     margin-bottom: 1em;
 }
 
+body{
+	margin-bottom: 3em;
+}
 /* Table */
 
 div#id-div-table {
@@ -148,50 +151,50 @@ div#id-div-table input[type="checkbox"] {
 
 /* User form */
 
-form#user {
+#user-form {
     margin: 2em;
     display: flex;
     flex-direction: column;
 }
 
-form#user>.form-group {
+#user-form>.form-group {
     display: flex;
 }
  
-form#user>.form-group.cls-auths {
+#user-form>.form-group.cls-auths {
     display: flex;
     flex-wrap: wrap;
 }
 
-form#user>.form-group.cls-auths>.form-group{
+#user-form>.form-group.cls-auths>.form-group{
 	margin-left: 1em;
 }
 
-form#user>.form-group.cls-auths input[type=checkbox]{
+#user-form>.form-group.cls-auths input[type=checkbox]{
 	margin-left: 1em;
 	transform: scale(2);
 }
 
-form#user>.form-group.cls-auths label,
-form#user>.form-group.cls-auths input[type=text]{
+#user-form>.form-group.cls-auths label,
+#user-form>.form-group.cls-auths input[type=text]{
 	margin-left: 1em;
 	border: 1px solid black;
 	width: 18em;
 }
 
-form#user>.form-group.cls-auths .form-group.cls-old input[type=text]{
+#user-form>.form-group.cls-auths .form-group.cls-old input[type=text]{
 	background-color: lightskyblue;
 }
 
-form#user>.form-group.cls-auths input[type=text]{
+#user-form>.form-group.cls-auths input[type=text]{
 	margin-left: 1.2em;
 }
 
-form#user>.form-group label {
+#user-form>.form-group label {
     flex: 0 0 12em
 }
 
-form#user .form-group.cls-checkbox .form-control{
+#user-form .form-group#enabled-group .form-control{
 	display: inline-block;
     transform: scale(2);
     width: 3em;
@@ -199,22 +202,81 @@ form#user .form-group.cls-checkbox .form-control{
     margin-left: 2em;
 }
 
-.cls-hide,
-form#user>.form-group.cls-hide {
+.cls-hiden,
+#user-form>.form-group.cls-hiden {
 	display: none;
 }
 
 span.error{
 	margin-left: 1em;
 }
-
-footer{
-	position: fixed;
-	bottom: 0;
-	padding-left: 1em;
+#edicion-body>h1:first-of-type,
+#administracion-body>h1:first-of-type{
+	margin-top: 2em;
 }
 
-.cls-rol footer{
+#edicion-body>h3:first-of-type,
+#administracion-body>h3:first-of-type{
+	border-bottom: 2px solid blue;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+}
+
+#container-intranet{
+	display: flex;
+}
+
+h2 {
+    margin: 2em 1em 1em;
+}
+
+div#columna1-intranet {
+    /* width: 35%!important; */
+    flex-flow: 2;
+    /* flex-grow: 2; */
+    flex: 0 0 40%;
+}
+
+#columna1-intranet,
+#columna2-intranet,
+#columna3-intranet{
+	display: inline-block;
+	width: 32%;
+}
+
+textarea#textarea1,
+textarea#textarea2,
+textarea#textarea3,
+textarea#textarea4 {
+    display: inline-block;
+    vertical-align: top;
+    overflow-y: hidden;
+    width: 100%;
+    padding-top: 1.5em;
+}
+
+#img1-intranet,
+#img2-intranet{
+	width:100%;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    padding-left: 1em;
+    background-color: #b3d7ff;
+    width: 100%;
+}
+
+.alert.alert-warning {
+    width: fit-content;
+}
+
+a.btn.btn-outline-primary.cls-colaboradores {
+    background-color: antiquewhite;
+}
+
+#user-body footer{
 	background-color: beige;
     width: 100%;
     margin: 0;

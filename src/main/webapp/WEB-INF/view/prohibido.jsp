@@ -13,7 +13,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<link href="<c:url value="/resources/css/index.css" />" rel="stylesheet">
 </head>
-<body id="id-prohibido">
+<body id="prohibido-body">
 	<header>
 		<img alt="Trip Memories" src="<c:url value="/resources/img/avion.png" />">
 		<p>Trip Memories</p>

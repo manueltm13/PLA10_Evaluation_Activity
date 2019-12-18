@@ -6,7 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class LoginController {
-	@GetMapping("/formLogin")
+
+	@GetMapping("/")
+	public String index() {
+		return "redirect:/tripmemories";
+	}
+
+	@GetMapping("/tripmemories")
 	public String formLogin() {
 		return "login";
 	}

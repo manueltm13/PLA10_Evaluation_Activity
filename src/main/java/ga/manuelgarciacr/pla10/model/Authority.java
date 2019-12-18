@@ -18,7 +18,6 @@ import ga.manuelgarciacr.pla10.model.dao.AuthorityDAO;
 @Table(name = "authorities",
 uniqueConstraints = @UniqueConstraint(
 		columnNames = { "authority", "username" }))
-//@IdClass(AuthorityId.class)
 public class Authority implements Serializable{
 	/**
 	 * 

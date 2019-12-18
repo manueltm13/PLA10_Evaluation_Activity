@@ -14,7 +14,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<link href="<c:url value="/resources/css/index.css" />" rel="stylesheet">
 </head>
-<body class="cls-rol">
+<body id="user-body">
 	<header>
 		<img alt="Trip Memories" src="<c:url value="/resources/img/avion.png" />">
 		<p>Users</p>
@@ -28,7 +28,7 @@
 	</div>
 	<h1>Hello <sec:authentication property="principal.username" /></h1>
 	<div id="id-div-table">
-		<a href="addUser" class="btn btn-primary mb-1">Add user</a>
+		<a href="/pla10/admin/addUser" class="btn btn-primary mb-1">Add user</a>
 		<table class="table table-striped">
 			<tr>
 				<th>Enabled
@@ -61,12 +61,13 @@
 		</table>
 	</div>
 	<footer>
+		<a href="${pageContext.request.contextPath}/intranet/" class="btn btn-outline-primary cls-colaboradores">Colaboradores</a>
 		<sec:authorize access="hasAnyRole('ADMIN', 'EDITOR')">
-			<a href="${pageContext.request.contextPath}/editor/"
+			<a href="${pageContext.request.contextPath}/edicion/"
 				class="btn btn-outline-primary">Sección Editorial</a>
 		</sec:authorize>
-		<sec:authorize access="hasAnyRole('ADMIN', 'EDITOR')">
-			<a href="${pageContext.request.contextPath}/administrador/"
+		<sec:authorize access="hasAnyRole('ADMIN', 'ADMINISTRATIVO')">
+			<a href="${pageContext.request.contextPath}/administracion/"
 				class="btn btn-outline-primary">Sección Administrativa</a>
 		</sec:authorize>
 	</footer>

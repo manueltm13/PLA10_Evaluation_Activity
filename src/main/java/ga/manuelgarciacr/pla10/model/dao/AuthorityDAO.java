@@ -23,18 +23,11 @@ public class AuthorityDAO implements IAuthorityDAO {
 		return sessionFactory.getCurrentSession().createQuery("from Authority order by authority", Authority.class).list();
 	}
 
-	//@Override
-	//public List<Authority> getAuthorities(String authority) {
-	//	return sessionFactory.getCurrentSession().createQuery("from Authority where authority = '" + authority + "'", Authority.class).list();
-	//}
-
 	@Override
 	public void save(Authority authority) {
 		Session session = sessionFactory.getCurrentSession();
 		try {
-//System.out.println("XXX" + authority.getAuthority()+ authority.getUsername());
-    		session.save(authority);
-            //authority.getUser().getAuthorities().add(authority);
+    		session.saveOrUpdate(authority);
         }
         catch (HibernateException e) {
             e.printStackTrace();
@@ -46,7 +39,6 @@ public class AuthorityDAO implements IAuthorityDAO {
 		Session session = sessionFactory.getCurrentSession();
 		try {
     		session.delete(authority);
-            //authority.getUser().getAuthorities().remove(authority);
         }
         catch (HibernateException e) {
             e.printStackTrace();

@@ -45,6 +45,12 @@ public class UserDAO implements IUserDAO {
 	}
 
 	@Override
+	public Boolean userEmailExists(String email, String excludedUsername) {
+		return (Long) sessionFactory.getCurrentSession()
+			.createQuery("select count(*) from User where userEmail='" + email + "' and username!='" + excludedUsername + "'").uniqueResult() > 0;
+	}
+
+	@Override
 	public Boolean userNameExists(String name) {
 		return (Long) sessionFactory.getCurrentSession()
 				.createQuery("select count(*) from User where username='" + name + "'").uniqueResult() > 0;

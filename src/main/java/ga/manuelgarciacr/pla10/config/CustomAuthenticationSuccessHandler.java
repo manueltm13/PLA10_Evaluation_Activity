@@ -23,8 +23,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		 
         if (roles.contains("ROLE_ADMIN")) {
             response.sendRedirect("/pla10/admin/users");
-        } else {
-            response.sendRedirect("/pla10/index");
+        } else if(roles.contains("ROLE_ADMINISTRATIVO") && roles.size() == 1){
+            response.sendRedirect("/pla10/administracion");
+        } else if(roles.contains("ROLE_EDITOR") && roles.size() == 1){
+            response.sendRedirect("/pla10/edicion");
+        }else {
+            response.sendRedirect("/pla10/intranet");
         }
     }
 }

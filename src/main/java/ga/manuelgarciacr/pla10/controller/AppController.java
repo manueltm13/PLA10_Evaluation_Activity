@@ -18,23 +18,19 @@ public class AppController {
 	@Autowired
 	private ICenterDAO centerService;
 	
-	@GetMapping("/")
-	public String index(Model modelo) {
-		List<Center> centers = centerService.getCenters();
-		modelo.addAttribute("centers", centers);
-		return "index";
+	@GetMapping("/intranet")
+	public String intranet(Model modelo) {
+		return "intranet";
 	}
 
-/*
-	@GetMapping("/products")
-	public String productos(Model modelo, @RequestParam int id) {
-		
-		List<Product> products = productService.getProducts(id);
-		Category category=categoryService.getCategory(id);
-		modelo.addAttribute("products", products);
-		modelo.addAttribute("category", category);
-
-		return "products";
+	@GetMapping("/administracion")
+	public String administracion(Model modelo) {
+		return "administracion";
 	}
-*/
+
+	@GetMapping("/edicion")
+	public String edicion(Model modelo) {
+		return "edicion";
+	}
+
 }
